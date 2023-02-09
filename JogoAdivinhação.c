@@ -1,15 +1,18 @@
 #include<stdio.h>
-
+#include<stdlib.h> 
+#include<time.h>
 int main(){
     
+    int numerosecreto=42;
     int ganhou=0;
     int tentativas = 1;    
+    double pontos=1000;
     printf("****************************************\n");
     printf("*bem vindo ao nosso jogo de adivinhação*\n");
     printf("****************************************\n");
   
     while (ganhou == 0){    
-    int  chute, chute1, numerosecreto = 42;
+    int  chute;
     int acertou = (chute == numerosecreto);
 
     printf("oqual o seu chute?\n");
@@ -22,8 +25,9 @@ int main(){
       {
         printf("parabens! voce acertou!!\n");
         printf("FIM DE JOGO!!!");
-          printf(".\n");
-          printf(".\n");   
+        printf("Voce fez %.1f pontos", pontos);
+        printf(".\n");
+        printf(".\n");   
         break;
       }
       else{
@@ -31,13 +35,16 @@ int main(){
         {
           printf("seu chute foi maior que o numero secreto\n");
           printf(".\n");
-          printf(".\n");
+          printf(".\n"); 
+          tentativas = tentativas + 1;          
         }
         if (chute <  numerosecreto)
         {
           printf("seu numero foi menor que o numero secreto\n");
           printf(".\n");
           printf(".\n");
+          printf("chute novamente:");
+          tentativas = tentativas + 1;          
         }
         if (chute < 0)
         {
@@ -48,8 +55,12 @@ int main(){
       
 
 
-tentativas++;     
+tentativas++; 
+double  pontosperdidos = abs(chute - numerosecreto) / (double)2;   
+
+pontos = pontos - pontosperdidos; 
 }
+
 tentativas = tentativas -1;       
 printf("Voce conseguiu em %d tentativas \n", tentativas);
 printf(".\n");
