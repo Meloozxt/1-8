@@ -3,7 +3,11 @@
 #include<time.h>
 int main(){
     
-    int numerosecreto=42;
+    
+    int segundos = time(0);
+    srand(segundos);
+    int numerogrande = rand();
+    int numerosecreto=numerogrande % 100;
     int ganhou=0;
     int tentativas = 1;    
     double pontos=1000;
@@ -36,7 +40,7 @@ int main(){
           printf("seu chute foi maior que o numero secreto\n");
           printf(".\n");
           printf(".\n"); 
-          tentativas = tentativas + 1;          
+          tentativas++;          
         }
         if (chute <  numerosecreto)
         {
@@ -44,7 +48,7 @@ int main(){
           printf(".\n");
           printf(".\n");
           printf("chute novamente:");
-          tentativas = tentativas + 1;          
+          tentativas++;          
         }
         if (chute < 0)
         {
