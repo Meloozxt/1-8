@@ -1,19 +1,21 @@
 #include<stdio.h>
-#include<stdlib.h> 
-#include<string.h>
-#include<time.h>
+  #include<stdlib.h> 
+    #include<string.h>
+      #include<time.h>
 //Dec. variáveis Globais--------------------------------------------------------------------------
 char nick_name[50];
   int j=0;  
     int z=0;
       int i=0;
         int k=0;
-          int t=0;
-            int numerotentativas = 0; 
-              int chutes[50][14];
-                int placar[50][14];
-                  int tentativas[50];
-                    int cont, chute, dificuldade, acertou, tim, secretnumber, jogada;
+          int opc;
+            int opc2;
+              int t=0;
+                int numerotentativas = 0; 
+                  int chutes[50][14];
+                    int placar[50][14];
+                      int tentativas[50];
+                        int cont=1, chute, dificuldade, acertou, tim, secretnumber, jogada;
 //Dec. Funções------------------------------------------------------------------------------------
 
   void Menu (void);
@@ -21,17 +23,21 @@ char nick_name[50];
       void Menu_Dificulty (void);
         void Choose_Dificulty (void);
           void Chooses_Else (void);
-            void End_Menu (void);
-              void Score (void);
+            void secMenu (void);
+              void End_Menu (void);
+                void search (void);
+                  void Score (void);
+                    void change_name(void);
 
 int main(){
 
 Menu();
   printf("digite seu Nick: \n");
     fgets(nick_name, 49, stdin);
-      system("clear");
-        instruction();
-          system("clear");
+      fflush(stdin);
+        system("clear");
+          instruction();
+            system("clear");
 do{ 
 //Dec. de variáveis voláteis----------------------------------------------------------------------
     int seg;
@@ -39,11 +45,10 @@ do{
           srand(seg);
             tim = rand();
               secretnumber = tim % 100;
-//Menu--------------------------------------------------------------------------------------------
+//Corpo principal-----------------------------------------------------------------------------------------
           Menu_Dificulty();  
            scanf("%d", &dificuldade);
               system("clear");
-//Corpo principal do código-----------------------------------------------------------------------
 
   Choose_Dificulty();
     system("clear");
@@ -55,7 +60,7 @@ do{
               placar[k][i] = chute;
                 
                 printf("seu chute foi: %d \n", chute);
-                  printf("Tentativa nº %d \n", tentativas[t]);
+                  printf("Tentativa nº %d \n", tentativas[t]+1);
 
                     if (chute  == secretnumber)
                     { 
@@ -65,23 +70,55 @@ do{
                           else{
                       
                             Chooses_Else();
-      }//End_Else    
-      }//end_For
+}    
+}
 
-//Menu final-------------------------------------------------------------------------------------
+  system("clear");
 
-system("clear");
+  End_Menu();
 
-End_Menu();
+  puts("jogador: ");
+    puts(nick_name);
+      puts("");
+        k++;
+          jogada++;
+            
+            secMenu();
+              if (opc == 5)
+              {
+                opc = 0;
+                cont = 3;
+              }                      
+                switch (opc)
+                {
+                  case 1:
+                    Score();
+                      cont=0;
+                        break;
+                          case 2:
+                          search();
+                            cont=0;
+                              break;
+                                case 4:
+                                  change_name();
+                                    break;                                             
+                                      default:
+                                        break;
+                }
+  secMenu();
+  printf("\n");
 
- puts("|jogador: ");
-  puts(nick_name);
-    puts("");
-      k++;
-        jogada++;
-          Score();
-              t++;
-                numerotentativas = 0;
+    if (cont == 0)
+    {
+    printf("|deseja jogar novamente?|\n");
+      printf("\n");
+        printf("|     sim (digite 1)    |\n");
+          printf("|     não (digite 0)    |\n");
+            scanf("%d", &cont);
+              system("clear");}
+
+                  t++;
+                    numerotentativas = 0;
 } while (cont == 1);
 }//End_Main
 //Funções----------------------------------------------------------------------------------------
@@ -179,18 +216,42 @@ void Score (void){
       for ( j = 0; j < jogada; j++)
       {
         printf("Partida %d: ", j+1);
-          for ( i = 0; i < tentativas[j]; i++)
+          for ( i = 0; i <=tentativas[j]; i++)
           {
-            printf("|%d", chutes[j][i]);
+            printf("|%d", chutes[j][i]+1);
           }
             printf("| %d Chutes", tentativas[j]);
             printf("\n");
       } 
-              printf("\n");
-                printf("|deseja jogar novamente?|\n");
-                  printf("\n");
-                    printf("|     sim (digite 1)    |\n");
-                      printf("|     não (digite 0)    |\n");
-                        scanf("%d", &cont);
-                          system("clear");
+}
+void search (void){
+  system("clear");
+    printf("|digite o numero refetente a jogada desejada: \n");
+      printf("|ex. 1- retorna o placar da 1ª jogada\n");
+        scanf("%d", &opc2);
+
+          opc2 = opc2 - 1;
+            printf("Partida %d: ", opc2+1);
+              for ( i = 0; i < tentativas[opc2]; i++)
+               {
+                printf("|%d", chutes[opc2][i]);
+                }
+                  printf("| %d Chutes", tentativas[j]);
+                    printf("\n");
+}
+void change_name(void){
+    printf("|Digite seu novo Nick: ");
+      getchar();
+          fgets(nick_name, 49, stdin);
+            fflush(stdin);
+}
+void secMenu (void){
+  printf("|oque deseja fazer a seguir? \n");
+              printf("|1- exibir o placar completo \n");
+                printf("|2- exibir o placar de uma jogada especifica \n");
+                  printf("|3- Jogar Novamente \n");
+                    printf("|4- Trocar de Nick \n");
+                    printf("|5- sair\n");
+                      scanf("%d", &opc);
+                        system("clear");
 }
